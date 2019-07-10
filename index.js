@@ -3,6 +3,9 @@ const http = require('http');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 
+//now importing from dishrouter.js
+const dishRouter = require('./routes/dishrouter');
+
 const hostname = 'localhost';
 const port = 3000;
 
@@ -12,13 +15,21 @@ const app = express();          //means that our application is using Express mo
 app.use(morgan('dev'));         //'dev' means useing it with development
                                 //morgan will log sufficient information that we need
 app.use(bodyParser.json());     //parsing the body of Request messege which is formatted in JSON format
+//now mounting the dishrouter
+app.use('/dishes', dishRouter);     //it means any request with /dishes endpoint will be handled with dishRouter
+
 //start making the REST API
+
+/*
 app.all('/dishes', (req,res,next) => {      //app.all() : no matter which method of GET,POST,PUT etc is called
     res.statusCode = 200;                   //this app.all() will be executed first!
     res.setHeader('Content-Type', 'text/html');
     next();        //it means it will continue on to look for additional specifications 
                    //which match /dishes end point (means it will continue till the next word)
 });
+*/
+
+/*
 //GET method
 app.get('/dishes', (req,res,next) => {
     res.end('Will send all the dishes to you!');
@@ -62,6 +73,7 @@ app.delete('/dishes/:dishId', (req,res,next) => {
     res.end('Deleting dish : ' +
     req.params.dishId);
 });
+*/
 
 
 app.use(express.static(__dirname + '/public'));      //this will use and look at static files in ./public
