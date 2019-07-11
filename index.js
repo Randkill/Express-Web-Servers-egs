@@ -3,8 +3,10 @@ const http = require('http');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 
-//now importing from dishrouter.js
+//now importing from dishrouter.js, leaderrouter.js & promorouter.js
 const dishRouter = require('./routes/dishrouter');
+const leaderRouter = require('./routes/leaderrouter');
+const promoRouter = require('./routes/promorouter');
 
 const hostname = 'localhost';
 const port = 3000;
@@ -15,8 +17,10 @@ const app = express();          //means that our application is using Express mo
 app.use(morgan('dev'));         //'dev' means useing it with development
                                 //morgan will log sufficient information that we need
 app.use(bodyParser.json());     //parsing the body of Request messege which is formatted in JSON format
-//now mounting the dishrouter
+//now mounting the dishrouter or in another case, handling the Endpoints
 app.use('/dishes', dishRouter);     //it means any request with /dishes endpoint will be handled with dishRouter
+app.use('/leaders', leaderRouter);
+app.use('/promos', promoRouter);
 
 //start making the REST API
 
